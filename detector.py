@@ -1,4 +1,5 @@
-#!/usr/env/bin python3
+# -*- coding: utf-8 -*-
+#!/usr/env/bin python
 
 import os
 import sys
@@ -6,12 +7,13 @@ import math
 import numpy as np
 import tensorflow as tf
 
-from helper import utils
+#from helper import utils
 
-from utils import resize_im, draw_boxes
+from utilis import resize_im, draw_boxes
 
 this_dir = os.path.dirname(__file__)
 lib_path = os.path.join(this_dir, 'ctpn', 'lib')
+print(lib_path)
 sys.path.insert(0, lib_path)
 from ctpn.lib.utils.timer import Timer
 from ctpn.lib.fast_rcnn.config import cfg

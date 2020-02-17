@@ -38,7 +38,8 @@ def process(img):
     start_time = time.time()
     rois, _, img = detector.detect(img)
     print("CTPN time: %.03fs" % (time.time() - start_time))
-
+    from utilis import sort_box
+    rois = sort_box(rois)
     start_time = time.time()
     ocr_result = recoer.recognize(img,rois)
     print("CRNN time: %.03fs" % (time.time() - start_time))

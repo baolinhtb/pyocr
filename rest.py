@@ -9,10 +9,9 @@ from flask import Flask, request, redirect, url_for,jsonify,render_template
 from flask_cors import CORS
 
 from detector import Detector
+detector = Detector('./ctpn/checkpoints','./ctpn/data/text.yml')
 from recognizer import Recognizer
-
-detector = Detector('./ctpn/checkpoints')
-recoer = Recognizer('./crnn/data/chars/chn.txt', 'crnn/models/weights_densenet.h5')
+recoer = Recognizer('./crnn/data/chars/chn.txt', './crnn/models/weights_densenet.h5')
 
 app = Flask(__name__)
 app.results = []

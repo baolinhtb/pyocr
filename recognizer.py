@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #!/usr/env/bin python3
 
 import os

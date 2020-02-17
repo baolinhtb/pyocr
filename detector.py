@@ -13,15 +13,14 @@ from utilis import resize_im, draw_boxes
 
 this_dir = os.path.dirname(__file__)
 lib_path = os.path.join(this_dir, 'ctpn', 'lib')
-print(lib_path)
 sys.path.insert(0, lib_path)
-from ctpn.lib.utils.timer import Timer
-from ctpn.lib.fast_rcnn.config import cfg
-from ctpn.lib.fast_rcnn.test import  test_ctpn
-from ctpn.lib.networks.factory import get_network
-from ctpn.lib.text_connector.detectors import TextDetector
-from ctpn.lib.text_connector.text_connect_cfg import Config as TextLineCfg
-from ctpn.lib.fast_rcnn.config import cfg_from_file
+from utils.timer import Timer
+from fast_rcnn.config import cfg
+from fast_rcnn.test import  test_ctpn
+from networks.factory import get_network
+from text_connector.detectors import TextDetector
+from text_connector.text_connect_cfg import Config as TextLineCfg
+from fast_rcnn.config import cfg_from_file
 
 class Detector:
 

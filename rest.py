@@ -11,11 +11,11 @@ from flask_cors import CORS
 from detector import Detector
 detector = Detector('./ctpn/checkpoints','./ctpn/data/text.yml')
 from recognizer import Recognizer
-recoer = Recognizer('./crnn/data/chars/chn.txt', './crnn/models/weights_densenet.h5')
+recoer = Recognizer('./crnn/labels/char_std_5990.txt', './crnn/models/weights_densenet.h5')
 
 app = Flask(__name__)
 app.results = []
-app.config['UPLOAD_FOLDER'] = 'examples/uploads'
+app.config['UPLOAD_FOLDER'] = 'samples'
 app.config["CACHE_TYPE"] = "null"
 app.config['ALLOWED_EXTENSIONS'] = set(['txt', 'png', 'jpg', 'jpeg', 'gif'])
 app.config['MAX_CONTENT_LENGTH'] = 3 * 1024 * 1024    # 1 Mb limit

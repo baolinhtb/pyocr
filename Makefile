@@ -20,5 +20,5 @@ run.web:
 	@python web.py
 
 test.curl:
-	@curl -F "file=@test_images/001.jpg" http://0.0.0.0:5000/idcard
+	@curl -F "img=@samples/1.jpg" http://0.0.0.0:5000/ocr
 

@@ -26,11 +26,11 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in app.config['ALLOWED_EXTENSIONS']
 
-def process(fielpath):
-    colr = cv2.imread(filepath, cv2.IMREAD_COLOR)
-    gray = cv2.cvtColor(colr, cv2.COLOR_BGR2GRAY)
+from PIL import Image
+def process(filepath):
+    img = np.array(Image.open(filepath).convert('RGB'))
     start_time = time.time()
-    rois, _, img = detector.detect(gray)
+    rois, _, img = detector.detect(img)
     print("CTPN time: %.03fs" % (time.time() - start_time))
     from utilis import sort_box
     rois = sort_box(rois)

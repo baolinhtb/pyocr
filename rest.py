@@ -19,8 +19,6 @@ app.config['UPLOAD_FOLDER'] = 'samples'
 app.config["CACHE_TYPE"] = "null"
 app.config['ALLOWED_EXTENSIONS'] = set(['txt', 'png', 'jpg', 'jpeg', 'gif'])
 app.config['MAX_CONTENT_LENGTH'] = 3 * 1024 * 1024    # 1 Mb limit
-app.config['idcard.img'] = app.config['UPLOAD_FOLDER'] + "/idcard.img"
-app.filename = ""
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -44,15 +42,15 @@ def process(img):
     ocr_result = recoer.recognize(img,rois)
     print("CRNN time: %.03fs" % (time.time() - start_time))
 
-    sorted_data = sorted(zip(rois, ocr_result), key=lambda x: x[0][1] + x[0][3] / 2)
-    rois, ocr_result = zip(*sorted_data)
+    # sorted_data = sorted(zip(rois, ocr_result), key=lambda x: x[0][1] + x[0][3] / 2)
+    # rois, ocr_result = zip(*sorted_data)
 
     res = {"results": []}
 
     for i in range(len(rois)):
         res["results"].append({
             'position': rois[i],
-            'text': ocr_result[i]
+            'text': ocr_result[i][1]
         })
 
     return res

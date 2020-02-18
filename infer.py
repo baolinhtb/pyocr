@@ -30,10 +30,9 @@ def process(img):
     ocr_result = recoer.recognize(img,rois)
     print("CRNN time: %.03fs" % (time.time() - start_time))
     for key in ocr_result:
-        print(result[key][1])
+        print(ocr_result[key][1])
 
 if __name__ == '__main__':
     for image_file in sorted(image_files):
         image = np.array(Image.open(image_file).convert('RGB'))
         process(image)
-        print(result)

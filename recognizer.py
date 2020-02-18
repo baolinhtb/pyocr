@@ -83,8 +83,6 @@ class Recognizer:
 
         return out
 
-
-
     def recognize(self, img, text_recs, adjust=False):
         """
         加载OCR模型，进行字符识别

@@ -29,22 +29,11 @@ def process(img):
     start_time = time.time()
     ocr_result = recoer.recognize(img,rois)
     print("CRNN time: %.03fs" % (time.time() - start_time))
-
-    sorted_data = sorted(zip(rois, ocr_result), key=lambda x: x[0][1] + x[0][3] / 2)
-    rois, ocr_result = zip(*sorted_data)
-
-    res = {"results": []}
-
-    for i in range(len(rois)):
-        res["results"].append({
-            'position': rois[i],
-            'text': ocr_result[i]
-        })
-
-    return res
+    for key in ocr_result:
+        print(result[key][1])
 
 if __name__ == '__main__':
     for image_file in sorted(image_files):
         image = np.array(Image.open(image_file).convert('RGB'))
-        result = process(image)
+        process(image)
         print(result)

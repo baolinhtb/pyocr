@@ -17,7 +17,7 @@ install.cpu: prerequisites
 	@cd ./ctpn/lib/utils/ && ./make_cpu.sh
 
 run.web:
-	@python web.py
+	@python rest.py
 
 test.curl:
 	@curl -F "img=@samples/1.jpg" http://0.0.0.0:5000/ocr

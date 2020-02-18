@@ -81,5 +81,5 @@ def dense_blstm(input):
 
     pass
 
-input = Input(shape=(32, 280, 1), name='the_input')
-dense_cnn(input, 5000)
+# input = Input(shape=(32, 280, 1), name='the_input')
+# dense_cnn(input, 5000)

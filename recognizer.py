@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#!/usr/env/bin python3
+#!/usr/env/bin python
 
 import os
 import sys
@@ -20,7 +20,8 @@ from crnn import keys
 from crnn import densenet
 from crnn.label_converter import LabelConverter
 from imp import reload
-reload(densenet)
+
+# reload(densenet)
 
 characters = keys.alphabet[:]
 characters = characters[1:] + u'卍'

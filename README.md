@@ -16,7 +16,9 @@ make test.infer
 - rest
 [run rest app]
 make test.rest
-
+```
+<img src="samples/1.jpg" width = '70%'/>
+```
 [test]
 $ curl -F "img=@samples/1.jpg" http://0.0.0.0:5000/ocr
 >>>

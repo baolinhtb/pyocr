@@ -22,7 +22,9 @@ from crnn.label_converter import LabelConverter
 from imp import reload
 
 import tensorflow as tf
-# reload(densenet)
+global graph
+graph = tf.Graph()
+sess = tf.Session(graph=graph)
 
 characters = keys.alphabet[:]
 characters = characters[1:] + u'卍'
@@ -50,11 +52,8 @@ class Recognizer:
         # config.gpu_options.per_process_gpu_memory_fraction = 0.3
         # config.gpu_options.allow_growth = False
         config = None
-        self.graph = tf.Graph()
-        self.sess = tf.Session(config=config, graph=self.graph)
-        # self.data_generator_multi = data_generator_multi()
-        with self.graph.as_default():
-            K.set_session(self.sess)
+        with graph.as_default():
+            K.set_session(sess)
             input = Input(shape=(32, None, 1), name='the_input')
             y_pred= densenet.dense_cnn(input, nclass)
             self.basemodel = Model(inputs=input, outputs=y_pred)
@@ -83,18 +82,17 @@ class Recognizer:
         '''
 
         img = np.array(img).astype(np.float32) / 255.0 - 0.5
-        
-        with self.graph.as_default():
-            K.set_session(self.sess)
         X = img.reshape([1, 32, width, 1])
-        y_pred = self.basemodel.predict(X)
-        y_pred = y_pred[:, :, :]
+        with graph.as_default():
+            K.set_session(sess)
+            y_pred = self.basemodel.predict(X)
+            y_pred = y_pred[:, :, :]
 
-        # out = K.get_value(K.ctc_decode(y_pred, input_length=np.ones(y_pred.shape[0]) * y_pred.shape[1])[0][0])[:, :]
-        # out = u''.join([characters[x] for x in out[0]])
-        out = decode(y_pred)
+            # out = K.get_value(K.ctc_decode(y_pred, input_length=np.ones(y_pred.shape[0]) * y_pred.shape[1])[0][0])[:, :]
+            # out = u''.join([characters[x] for x in out[0]])
+            out = decode(y_pred)
 
-        return out
+            return out
 
     def recognize(self, img, text_recs, adjust=False):
         """

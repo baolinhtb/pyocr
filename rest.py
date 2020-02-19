@@ -52,7 +52,7 @@ def process(img):
             'position': rois[index],
             'text': ocr_result[key][1]
         })
-
+    print(res)
     return res
 
 import json
@@ -62,7 +62,7 @@ def ocr():
     if request.method == 'POST':
         img = get_cv_img(request)
         ret = process(img)
-        return json.dumps(ret)
+        return json.dumps(ret,encoding='utf-8')
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')

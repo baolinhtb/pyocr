@@ -49,7 +49,7 @@ def process(img):
 
     for index,key in enumerate(ocr_result):
         res["results"].append({
-            'position': rois[index],
+            # 'position': rois[index],
             'text': ocr_result[key][1]
         })
     print(res)

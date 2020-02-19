@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 #!/usr/env/bin python
-
+# error: keras+flask(Tensor %s is not an element of this graph.)
+# solution: https://blog.csdn.net/muguangzhichen/article/details/91834667
 import os
 import sys
 

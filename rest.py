@@ -62,7 +62,7 @@ def ocr():
     if request.method == 'POST':
         img = get_cv_img(request)
         ret = process(img)
-        return json.dumps(ret,encoding='utf-8')
+        return json.dumps(ret,encoding='utf-8', indent=2, ensure_ascii=False)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')

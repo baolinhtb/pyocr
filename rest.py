@@ -47,15 +47,26 @@ def process(img):
 
     res = {"results": []}
 
+    # error: numpy+json( raise TypeError(repr(o) + " is not JSON serializable"))
+    # solution: numpy to int
+    xDim, yDim = img.shape[1], img.shape[0]
+
     for index,key in enumerate(ocr_result):
+        rec = rois[index]
+        topleft = (max(1, rec[0]), max(1, rec[1]))
+        # pt2 = (rec[2], rec[3])
+        bottomright = (min(rec[6], xDim - 2), min(yDim - 2, rec[7]))
+        # pt4 = (rec[4], rec[5])        
         res["results"].append({
-            # 'position': rois[index],
+            'pos(tf)': topleft,
+            'pos(br)': bottomright,
             'text': ocr_result[key][1]
         })
     print(res)
     return res
 
 import json
+
 
 @app.route('/ocr', methods=['POST'])
 def ocr():

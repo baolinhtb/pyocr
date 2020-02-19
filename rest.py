@@ -49,8 +49,8 @@ def process(img):
 
     # error: numpy+json( raise TypeError(repr(o) + " is not JSON serializable"))
     # solution: numpy to int
-    for index,key in enumerate(ocr_result):
-        roi = rois[index]
+    for key in ocr_result:
+        roi = ocr_result[key][0]
         xs = (roi[0],roi[2],roi[4],roi[6])
         ys = (roi[1],roi[3],roi[5],roi[7])
         res["results"].append({

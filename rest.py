@@ -57,7 +57,6 @@ def process(img):
             'pos': (min(xs),min(ys),max(xs),max(ys)),
             'text': ocr_result[key][1]
         })
-    print(res)
     return res
 
 import json

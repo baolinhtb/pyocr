@@ -16,8 +16,11 @@ install.cpu: prerequisites
 	@chmod +x ./ctpn/lib/utils/make_cpu.sh
 	@cd ./ctpn/lib/utils/ && ./make_cpu.sh
 
-run.web:
+test.rest:
 	@python rest.py
+
+test.infer:
+	@python infer.py
 
 test.curl:
 	@curl -F "img=@samples/1.jpg" http://0.0.0.0:5000/ocr

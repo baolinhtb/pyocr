@@ -92,7 +92,7 @@ class Recognizer:
 
         # out = K.get_value(K.ctc_decode(y_pred, input_length=np.ones(y_pred.shape[0]) * y_pred.shape[1])[0][0])[:, :]
         # out = u''.join([characters[x] for x in out[0]])
-            out = decode(y_pred)
+        out = decode(y_pred)
 
         return out
 

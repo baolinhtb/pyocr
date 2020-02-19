@@ -45,18 +45,23 @@ class Recognizer:
         :param ckpt: ckpt 目录或者 pb 文件
         """
         self.converter = LabelConverter(chars_file)
+        # os.environ["CUDA_VISIBLE_DEVICES"] = str(gpu_id)
+        # config = tf.ConfigProto()
+        # config.gpu_options.per_process_gpu_memory_fraction = 0.3
+        # config.gpu_options.allow_growth = False
+        config = None
         self.graph = tf.Graph()
-        self.sess = tf.Session(graph=self.graph)
-        K.clear_session()
-        K.set_session(self.sess)
-        self.graph.as_default()
-        input = Input(shape=(32, None, 1), name='the_input')
-        y_pred= densenet.dense_cnn(input, nclass)
-        self.basemodel = Model(inputs=input, outputs=y_pred)
+        self.sess = tf.Session(config=config, graph=self.graph)
+        # self.data_generator_multi = data_generator_multi()
+        with self.graph.as_default():
+            K.set_session(self.sess)
+            input = Input(shape=(32, None, 1), name='the_input')
+            y_pred= densenet.dense_cnn(input, nclass)
+            self.basemodel = Model(inputs=input, outputs=y_pred)
 
-        # model_path = os.path.join(os.getcwd(), model_path)
-        if os.path.exists(model_path):
-            self.basemodel.load_weights(model_path)
+            # model_path = os.path.join(os.getcwd(), model_path)
+            if os.path.exists(model_path):
+                self.basemodel.load_weights(model_path)
 
     def decode(self, predicts):
         decoded_predicts = self.converter.decode_list(predicts, invalid_index=-1)
@@ -79,14 +84,15 @@ class Recognizer:
 
         img = np.array(img).astype(np.float32) / 255.0 - 0.5
         
+        with self.graph.as_default():
+            K.set_session(self.sess)
         X = img.reshape([1, 32, width, 1])
-        
         y_pred = self.basemodel.predict(X)
         y_pred = y_pred[:, :, :]
 
         # out = K.get_value(K.ctc_decode(y_pred, input_length=np.ones(y_pred.shape[0]) * y_pred.shape[1])[0][0])[:, :]
         # out = u''.join([characters[x] for x in out[0]])
-        out = decode(y_pred)
+            out = decode(y_pred)
 
         return out
 

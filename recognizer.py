@@ -21,6 +21,7 @@ from crnn import densenet
 from crnn.label_converter import LabelConverter
 from imp import reload
 
+import tensorflow as tf
 # reload(densenet)
 
 characters = keys.alphabet[:]
@@ -35,6 +36,7 @@ def decode(pred):
             char_list.append(characters[pred_text[i]])
     return u''.join(char_list)
 
+import keras.backend as K
 class Recognizer:
     #
     def __init__(self, chars_file='./crnn/labels/char_std_5990.txt', \
@@ -43,6 +45,10 @@ class Recognizer:
         :param ckpt: ckpt 目录或者 pb 文件
         """
         self.converter = LabelConverter(chars_file)
+        self.graph = tf.Graph()
+        self.sess = tf.Session(graph=self.graph)
+        K.clear_session()
+        K.set_session(self.sess)
         input = Input(shape=(32, None, 1), name='the_input')
         y_pred= densenet.dense_cnn(input, nclass)
         self.basemodel = Model(inputs=input, outputs=y_pred)

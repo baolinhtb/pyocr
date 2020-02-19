@@ -6,7 +6,7 @@ import time
 import cv2
 import numpy as np
 from flask import Flask, request, redirect, url_for,jsonify,render_template
-from flask_cors import CORS
+# from flask_cors import CORS
 
 from detector import Detector
 detector = Detector('./ctpn/checkpoints','./ctpn/data/text.yml')

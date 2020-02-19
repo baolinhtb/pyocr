@@ -109,6 +109,6 @@ $ curl -F "img=@samples/1.jpg" http://0.0.0.0:5000/ocr
 }
 ```
 
-### thanks
+### Thanks
 - [YCG09](https://github.com/YCG09/chinese_ocr)
 - [Sanster](https://github.com/Sanster/DeepOcrService)

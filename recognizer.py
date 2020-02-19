@@ -49,6 +49,7 @@ class Recognizer:
         self.sess = tf.Session(graph=self.graph)
         K.clear_session()
         K.set_session(self.sess)
+        self.graph.as_default()
         input = Input(shape=(32, None, 1), name='the_input')
         y_pred= densenet.dense_cnn(input, nclass)
         self.basemodel = Model(inputs=input, outputs=y_pred)

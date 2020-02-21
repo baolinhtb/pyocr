@@ -1,5 +1,5 @@
 # pyocr
-python chinese ocr based on ctpn + densenet. this code is tested on python2.7, tensorflow-1.5.0, cuda9.0, cudnn-7.0.5
+python chinese ocr rest api based on ctpn + densenet. this code was tested on python2.7, tensorflow-1.5.0, cuda9.0, cudnn-7.0.5
 ### install
 ```
 [prerequisites]

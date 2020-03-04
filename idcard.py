@@ -1,4 +1,4 @@
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 # written by junying, 2020-03-03
 # [SOLUTION 1]-CONVENTIONAL
 # logic: colrspace + keyword + position + collocation

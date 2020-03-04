@@ -29,10 +29,8 @@ def process(img):
     start_time = time.time()
     ocr_result = recoer.recognize(img,rois)
     print("CRNN time: %.03fs" % (time.time() - start_time))
-    for key in ocr_result:
-        print("key(%s):%s"%(key,ocr_result[key][1]))
     from idcard import ocr_result2idcard_json
-    ocr_result2idcard_json(ocr_result)
+    res = ocr_result2idcard_json(ocr_result)
 
 if __name__ == '__main__':
     for image_file in sorted(image_files):

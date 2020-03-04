@@ -20,6 +20,7 @@ birthday = ['出','生','年','月','日']
 
 import string
 symbols=['!','@','#','$','%','^','&','*','(',')','-','_','+','=','~','`','[',']','{','}','|',':',';']
+chn_symbols=['。','、','；','：','‘','“','【','】','×','＋']
 digits = [str(digit) for digit in string.digits]
 
 filters = {
@@ -66,10 +67,10 @@ def ocr_result2idcard_json(ocr_result):
                            "position":(left,top,right,bottom,width,height),
                            "group":""})
     # 2. remove all symbols
-    for symbol in symbols:
+    for symbol in symbolschn_symbols:
         fully_connected = fully_connected.strip(symbol)
     # 
     seg_list = jieba.cut(fully_connected)
     print(", ".join(seg_list))
-    
+
     return res

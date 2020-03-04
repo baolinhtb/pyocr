@@ -20,7 +20,7 @@ birthday = ['出','生','年','月','日']
 
 import string
 symbols=['!','@','#','$','%','^','&','*','(',')','-','_','+','=','~','`','[',']','{','}','|',':',';']
-chn_symbols=['。','、','；','：','‘','“','【','】','×','＋']
+chn_symbols=['。','、','；','‘','“','【','】','×','＋','：']
 digits = [str(digit) for digit in string.digits]
 
 filters = {
@@ -52,8 +52,7 @@ def ocr_result2idcard_json(ocr_result):
             "公民身份号码": "",
             }
     # 1. rearrange
-    rearranged = []
-    fully_connected = u""
+    ocr_result_array = []
     for key in ocr_result:
         result = ocr_result[key][1]
         pos = ocr_result[key][0]
@@ -62,14 +61,17 @@ def ocr_result2idcard_json(ocr_result):
         left,top,right,bottom=min(xs),min(ys),max(xs),max(ys)
         width=right-left
         height=bottom-top
-        fully_connected += result
-        rearranged.append({"result": result,
+        ocr_result_array.append({"result": result,
                            "position":(left,top,right,bottom,width,height),
                            "group":""})
+    fully_connected = u""
+    sorted_ =sorted(ocr_result_array,key=lambda x: x["position"][1])
+    for item in sorted_:
+        fully_connected += item["result"]
     # 2. remove all symbols
     fully_connected=fully_connected.encode("utf-8")
     for symbol in symbols+chn_symbols:
-        fully_connected = fully_connected.strip(symbol)
+        fully_connected = fully_connected.replace(symbol,'')
     # 
     seg_list = jieba.cut(fully_connected)
     print(", ".join(seg_list))

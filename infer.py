@@ -29,7 +29,7 @@ def process(img):
     start_time = time.time()
     ocr_result = recoer.recognize(img,rois)
     print("CRNN time: %.03fs" % (time.time() - start_time))
-    from idcard import ocr_result2idcard_json
+    from classify import ocr_result2idcard_json
     res = ocr_result2idcard_json(ocr_result)
 
 if __name__ == '__main__':

@@ -24,11 +24,11 @@ chn_symbols=['。','、','；','‘','“','【','】','×','＋','：']
 digits = [str(digit) for digit in string.digits]
 
 filters = {
-        "姓名": [naem.encode("utf-8") for item in chn_snames],
-        "性别": [naem.encode("utf-8") for item in genders],
-        "民族": [naem.encode("utf-8") for item in chn_nations],
-        "出生": [naem.encode("utf-8") for item in birthday+digits],
-        "住址": [naem.encode("utf-8") for item in chn_regions],
+        "姓名": [item.encode("utf-8") for item in chn_snames],
+        "性别": [item.encode("utf-8") for item in genders],
+        "民族": [item.encode("utf-8") for item in chn_nations],
+        "出生": [item.encode("utf-8") for item in birthday+digits],
+        "住址": [item.encode("utf-8") for item in chn_regions],
         "公民身份号码": digits,
         }
 

@@ -67,7 +67,7 @@ def ocr_result2idcard_json(ocr_result):
                            "position":(left,top,right,bottom,width,height),
                            "group":""})
     # 2. remove all symbols
-    for symbol in symbolschn_symbols:
+    for symbol in symbols+chn_symbols:
         fully_connected = fully_connected.strip(symbol)
     # 
     seg_list = jieba.cut(fully_connected)

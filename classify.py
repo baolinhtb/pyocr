@@ -50,11 +50,14 @@ def classify(ocr_result_array):
     # filtering & grouping
     # segmets[i] where i in groups
     for index,item in enumerate(ocr_result_array):
+        print(item["segments"])
         for i,seg in enumerate(item["segments"]):
+            print(seg)
             # card number if all digits & len > 10: 
             if all(letter in filters["公民身份号码"] for letter in seg) and \
                 len(seg) >= 10 and \
                 index>3:
+                print("公民身份号码:"%ocr_result_array[index]["segments"][i])
                 ocr_result_array[index]["groups"][i]="公民身份号码";break
             # region if any region string exists
             if all(region in seg for region in filters["住址"]) and \
@@ -63,6 +66,7 @@ def classify(ocr_result_array):
                 # remove all before region string, it is for mark string
                 ocr_result_array[index]["segments"][i] = \
                     ocr_result_array[index]["result"][ocr_result_array[index]["result"].find(seg):]
+                print("住址:"%ocr_result_array[index]["segments"][i])
                 break
             # name if any surname exits
             if all(sname in seg for sname in filters["姓名"]) and \
@@ -71,6 +75,7 @@ def classify(ocr_result_array):
                 # remove all before surname string, it is for mark string
                 ocr_result_array[index]["segments"][i] = \
                     ocr_result_array[index]["result"][ocr_result_array[index]["result"].find(seg):]
+                print("姓名:"%ocr_result_array[index]["segments"][i])
                 break
             # year if 3+ digits exists
             if all(letter in filters["出生"] for letter in seg) and \
@@ -80,15 +85,18 @@ def classify(ocr_result_array):
                 # remove all before year string, it is for mark string
                 ocr_result_array[index]["segments"][i] = \
                     ocr_result_array[index]["result"][ocr_result_array[index]["result"].find(seg):]
+                print("出生:"%ocr_result_array[index]["segments"][i])
                 break
             # gender if any gender exits
             if all(gender in seg for gender in filters["性别"]) and \
                 index < 4:
                 ocr_result_array[index]["groups"][i]="性别"; continue
+                print("性别:"%ocr_result_array[index]["segments"][i])
             # nationaliy if any nationality exits
             if all(nation in seg for nation in filters["民族"]) and \
                 index < 4:
                 ocr_result_array[index]["groups"][i]="民族"; continue
+                print("民族:"%ocr_result_array[index]["segments"][i])
     # classifying
     for index,item in enumerate(ocr_result_array):
         # next string after region

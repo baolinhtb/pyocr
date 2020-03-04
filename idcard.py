@@ -53,7 +53,7 @@ def ocr_result2idcard_json(ocr_result):
             }
     # 1. rearrange
     rearranged = []
-    fully_connected = ""
+    fully_connected = u""
     for key in ocr_result:
         result = ocr_result[key][1]
         pos = ocr_result[key][0]
@@ -67,6 +67,7 @@ def ocr_result2idcard_json(ocr_result):
                            "position":(left,top,right,bottom,width,height),
                            "group":""})
     # 2. remove all symbols
+    fully_connected=fully_connected.encode("utf-8")
     for symbol in symbols+chn_symbols:
         fully_connected = fully_connected.strip(symbol)
     # 
@@ -74,3 +75,13 @@ def ocr_result2idcard_json(ocr_result):
     print(", ".join(seg_list))
 
     return res
+
+if __name__ == "__main__":
+    ocr_result={}
+    ocr_result['1']=(((1,2,3,4,5,6,7,8),u"姓名"))
+    ocr_result['2']=(((1,2,3,4,5,6,7,8),u":"))
+    ocr_result['3']=(((1,2,3,4,5,6,7,8),u"唐三藏"))
+    ocr_result['４']=(((1,2,3,4,5,6,7,8),u"性别"))
+    ocr_result['５']=(((1,2,3,4,5,6,7,8),u"："))
+    ocr_result['６']=(((1,2,3,4,5,6,7,8),u"男"))
+    ocr_result2idcard_json(ocr_result)

@@ -24,11 +24,11 @@ chn_symbols=['。','、','；','‘','“','【','】','×','＋','：']
 digits = [str(digit) for digit in string.digits]
 
 filters = {
-        "姓名": chn_snames,
-        "性别": genders,
-        "民族": chn_nations,
-        "出生": birthday+digits,
-        "住址": chn_regions,
+        "姓名": [naem.encode("utf-8") for item in chn_snames],
+        "性别": [naem.encode("utf-8") for item in genders],
+        "民族": [naem.encode("utf-8") for item in chn_nations],
+        "出生": [naem.encode("utf-8") for item in birthday+digits],
+        "住址": [naem.encode("utf-8") for item in chn_regions],
         "公民身份号码": digits,
         }
 
@@ -118,9 +118,9 @@ def ocr_result2idcard_json(ocr_result):
         for symbol in symbols+chn_symbols:
             result_utf8 = result_utf8.replace(symbol,'')
         segs = jieba.cut(result_utf8)
-        seg_list=[seg for seg in segs]
+        seg_list=[seg.encode("utf-8") for seg in segs]
         if seg_list == []: continue
-        ocr_result_array.append({"result": result,
+        ocr_result_array.append({"result": result_utf8,
                                  "segments": seg_list,
                                  "position":(left,top,right,bottom,width,height),
                                  "groups":{},})

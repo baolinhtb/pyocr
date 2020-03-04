@@ -44,9 +44,10 @@ def process(img):
 
     # sorted_data = sorted(zip(rois, ocr_result), key=lambda x: x[0][1] + x[0][3] / 2)
     # rois, ocr_result = zip(*sorted_data)
+    return ocr_result
 
+def ocr_result2ocr_json(ocr_result):
     res = {"results": []}
-
     # error: numpy+json( raise TypeError(repr(o) + " is not JSON serializable"))
     # solution: numpy to int
     for key in ocr_result:
@@ -66,7 +67,16 @@ import json
 def ocr():
     if request.method == 'POST':
         img = get_cv_img(request)
-        ret = process(img)
+        ocr_result = process(img)
+        ret = ocr_result2ocr_json(ocr_result)
+        return json.dumps(ret,encoding='utf-8', indent=2, ensure_ascii=False)
+
+@app.route('/idcard', methods=['POST'])
+def idcard():
+    if request.method == 'POST':
+        img = get_cv_img(request)
+        ocr_result = process(img)
+        ret = ocr_result2ocr_json(ocr_result)
         return json.dumps(ret,encoding='utf-8', indent=2, ensure_ascii=False)
 
 if __name__ == "__main__":

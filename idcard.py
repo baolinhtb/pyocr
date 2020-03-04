@@ -126,9 +126,9 @@ def ocr_result2idcard_json(ocr_result):
                                  "groups":{},})
     # sort & classfiy
     sorted_ =sorted(ocr_result_array,key=lambda x: x["position"][1])
-    res = classify(sorted)
+    res = classify(sorted_)
     print(res)
-    
+
 if __name__ == "__main__":
     ocr_result={}
     ocr_result['1']=(((1,2,3,4,5,6,7,8),u"姓名"))

@@ -71,7 +71,7 @@ def classify(ocr_result_array):
                 print("住址:%s"%ocr_result_array[index]["segments"][i])
                 break
             # name if any surname exits
-            if all(sname in seg for sname in filters["姓名"]) and \
+            if any(sname in seg for sname in filters["姓名"]) and \
                 index < 2:
                 ocr_result_array[index]["groups"][i]="姓名"
                 # remove all before surname string, it is for mark string
@@ -92,13 +92,13 @@ def classify(ocr_result_array):
                 print("出生:%s"%ocr_result_array[index]["segments"][i])
                 break
             # gender if any gender exits
-            if all(gender in seg for gender in filters["性别"]) and \
+            if any(gender in seg for gender in filters["性别"]) and \
                 index < 4:
                 ocr_result_array[index]["groups"][i]="性别"
                 print("性别:%s"%ocr_result_array[index]["segments"][i])
                 continue
             # nationaliy if any nationality exits
-            if all(nation in seg for nation in filters["民族"]) and \
+            if any(nation in seg for nation in filters["民族"]) and \
                 index < 4:
                 ocr_result_array[index]["groups"][i]="民族"
                 print("民族:%s"%ocr_result_array[index]["segments"][i])

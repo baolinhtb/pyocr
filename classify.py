@@ -147,7 +147,7 @@ def ocr_result2idcard_json(ocr_result):
     # sort & classfiy
     sorted_ =sorted(ocr_result_array,key=lambda x: x["position"][1])
     res = classify(sorted_)
-    # print(res)
+    return res
 
 if __name__ == "__main__":
     ocr_result={}

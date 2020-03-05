@@ -74,7 +74,7 @@ def classify(ocr_result_array):
             # name if any surname exits
             if any(sname in seg for sname in filters["姓名"]) and \
                 index < 2 and \
-                not any(seg in item for item in ["姓名","性别","民族"]):
+                not any(seg in item for item in ["姓名","性别","民族"]) + filters["民族"]:
                 ocr_result_array[index]["groups"][i]="姓名"
                 # remove all before surname string, it is for mark string
                 ocr_result_array[index]["segments"][i] = \

@@ -50,7 +50,7 @@ def classify(ocr_result_array):
     # filtering & grouping
     # segmets[i] where i in groups
     for index,item in enumerate(ocr_result_array):
-        print(item["segments"])
+        print(item["result"])
         for i,seg in enumerate(item["segments"]):
             print(seg)
             # card number if all digits & len > 10: 
@@ -80,6 +80,7 @@ def classify(ocr_result_array):
             # year if 3+ digits exists
             if all(letter in filters["出生"] for letter in seg) and \
                 len(seg) >= 3 and \
+                (i < len(item["segments"]) and item["segments"][i+1] == '年')\
                 index > 1:
                 ocr_result_array[index]["groups"][i]="出生"
                 # remove all before year string, it is for mark string
@@ -90,13 +91,15 @@ def classify(ocr_result_array):
             # gender if any gender exits
             if all(gender in seg for gender in filters["性别"]) and \
                 index < 4:
-                ocr_result_array[index]["groups"][i]="性别"; continue
+                ocr_result_array[index]["groups"][i]="性别"
                 print("性别:%s"%ocr_result_array[index]["segments"][i])
+                continue
             # nationaliy if any nationality exits
             if all(nation in seg for nation in filters["民族"]) and \
                 index < 4:
-                ocr_result_array[index]["groups"][i]="民族"; continue
+                ocr_result_array[index]["groups"][i]="民族"
                 print("民族:%s"%ocr_result_array[index]["segments"][i])
+                continue
     # classifying
     for index,item in enumerate(ocr_result_array):
         # next string after region

@@ -30,7 +30,9 @@ def get_cv_img(r):
     f.save(in_memory_file)
     nparr = np.fromstring(in_memory_file.getvalue(), np.uint8)
     img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-    return img
+    hsv = cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
+    h,s,v = cv2.split(hsv)
+    return cv2.cvtColor(v,cv2.COLOR_GRAY2BGR)
 
 def process(img):
     start_time = time.time()

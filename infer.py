@@ -32,7 +32,8 @@ def process(img):
     from classify import ocr_result2idcard_json
     res = ocr_result2idcard_json(ocr_result)
     import json
-    print json.dumps(res,encoding='utf-8', indent=2, ensure_ascii=False)
+    jsonstr = json.dumps(res,encoding='utf-8', indent=2, ensure_ascii=False)
+    print(jsonstr)
 
 if __name__ == '__main__':
     for image_file in sorted(image_files):

@@ -48,7 +48,7 @@ def classify(ocr_result_array):
             "住址": "",
             "公民身份号码": "",
             }
-    if len(ocr_result_array)>10: return res
+    if len(ocr_result_array)>13: return res
 
     # filtering & grouping
     # segmets[i] where i in groups

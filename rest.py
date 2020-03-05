@@ -25,6 +25,7 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in app.config['ALLOWED_EXTENSIONS']
 
+from PIL import Image
 def get_cv_img(r):
     if 0:
         f = r.files['img']
@@ -37,7 +38,8 @@ def get_cv_img(r):
     else:
         f = r.files['img']
         f.save(app.config['idcard.img'],buffer_size=app.config['MAX_CONTENT_LENGTH'])
-        img = cv2.imread(app.config['idcard.img'], cv2.IMREAD_COLOR)
+        img = np.array(Image.open(app.config['idcard.img']).convert('RGB'))
+        # img = cv2.imread(app.config['idcard.img'], cv2.IMREAD_COLOR)
     return img
 
 def process(img):

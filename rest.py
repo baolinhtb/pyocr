@@ -16,6 +16,7 @@ recoer = Recognizer('./crnn/labels/char_std_5990.txt', './crnn/models/weights_de
 app = Flask(__name__)
 app.results = []
 app.config['UPLOAD_FOLDER'] = 'samples'
+app.config['idcard.img'] = app.config['UPLOAD_FOLDER'] + "/idcard.img"
 app.config["CACHE_TYPE"] = "null"
 app.config['ALLOWED_EXTENSIONS'] = set(['txt', 'png', 'jpg', 'jpeg', 'gif'])
 app.config['MAX_CONTENT_LENGTH'] = 3 * 1024 * 1024    # 1 Mb limit
@@ -25,14 +26,19 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1] in app.config['ALLOWED_EXTENSIONS']
 
 def get_cv_img(r):
-    f = r.files['img']
-    in_memory_file = io.BytesIO()
-    f.save(in_memory_file)
-    nparr = np.fromstring(in_memory_file.getvalue(), np.uint8)
-    img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-    # hsv = cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
-    # h,s,v = cv2.split(hsv)
-    return img#cv2.cvtColor(v,cv2.COLOR_GRAY2BGR)
+    if 0:
+        f = r.files['img']
+        in_memory_file = io.BytesIO()
+        f.save(in_memory_file)
+        nparr = np.fromstring(in_memory_file.getvalue(), np.uint8)
+        img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+        # hsv = cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
+        # h,s,v = cv2.split(hsv)
+    else:
+        f = r.files['img']
+        f.save(app.config['idcard.img'],buffer_size=app.config['MAX_CONTENT_LENGTH'])
+        img = cv2.imread(app.config['idcard.img'], cv2.IMREAD_COLOR)
+    return img
 
 def process(img):
     start_time = time.time()

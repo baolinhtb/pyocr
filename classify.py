@@ -82,7 +82,7 @@ def classify(ocr_result_array):
             # year if 3+ digits exists
             if all(letter in filters["出生"] for letter in seg) and \
                 len(seg) >= 3 and \
-                (i < len(item["segments"] and item["segments"][i+1] == '年')\
+                (i < len(item["segments"] and item["segments"][i+1] == '年') and\
                 index > 1:
                 ocr_result_array[index]["groups"][i]="出生"
                 # remove all before year string, it is for mark string

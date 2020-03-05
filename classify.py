@@ -38,6 +38,7 @@ filters = {
 
 from handy.misc import switch
 
+debug = True
 # keyword+length+collocation filtering
 def classify(ocr_result_array):
     res = {
@@ -53,9 +54,9 @@ def classify(ocr_result_array):
     # filtering & grouping
     # segmets[i] where i in groups
     for index,item in enumerate(ocr_result_array):
-        # print(item["result"])
+        if debug: print("result:%s"%item["result"])
         for i,seg in enumerate(item["segments"]):
-            # print(seg)
+            if debug: print("seg%d:%s"%(i,seg))
             # card number if all digits & len > 10: 
             if all(letter in filters["公民身份号码"] for letter in seg) and \
                 len(seg) >= 10 and \

@@ -47,6 +47,8 @@ def classify(ocr_result_array):
             "住址": "",
             "公民身份号码": "",
             }
+    if len(ocr_result_array)>10: return res
+
     # filtering & grouping
     # segmets[i] where i in groups
     for index,item in enumerate(ocr_result_array):
@@ -80,7 +82,7 @@ def classify(ocr_result_array):
             # year if 3+ digits exists
             if all(letter in filters["出生"] for letter in seg) and \
                 len(seg) >= 3 and \
-                (i < len(item["segments"]) and item["segments"][i+1] == '年')\
+                (i < len(item["segments"] and item["segments"][i+1] == '年')\
                 index > 1:
                 ocr_result_array[index]["groups"][i]="出生"
                 # remove all before year string, it is for mark string

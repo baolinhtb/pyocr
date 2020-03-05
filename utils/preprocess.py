@@ -1,4 +1,18 @@
 # written by junying, 2020-03-03
+import numpy as np
+# from matplotlib import pyplot as plt
+
+# def showHistogram(img):
+#     hist,bins = np.histogram(img.flatten(),256,[0,256])
+
+#     cdf = hist.cumsum()
+#     cdf_normalized = cdf * hist.max()/ cdf.max()
+
+#     plt.plot(cdf_normalized, color = 'b')
+#     plt.hist(img.flatten(),256,[0,256], color = 'r')
+#     plt.xlim([0,256])
+#     plt.legend(('cdf','histogram'), loc = 'upper left')
+    # plt.show()
 
 def showResult(name,
                img):
@@ -13,9 +27,10 @@ def colr2hsv(image):
     h,s,v = cv2.split(hsv)
     if 1:
         showResult("o",image)
-        showResult("h",h)
-        showResult("s",s)
+        # showResult("h",h)
+        # showResult("s",s)
         showResult("v",v)
+        # showHistogram(v)
     threshold(v)
 
 import numpy as np
@@ -60,8 +75,8 @@ def threshold(fspace):
         showResult("thr",thr)
 
 if __name__ == "__main__":
-    origin=cv2.imread('samples/2.jpg')
+    origin=cv2.imread('samples/1.jpg')
     h,w,c = origin.shape
-    size = 200.0
+    size = 400.0
     resized = cv2.resize(origin,(int(w*size/h),int(size)))
     colr2hsv(resized)

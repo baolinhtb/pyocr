@@ -25,6 +25,6 @@ test.infer:
 test.ocr:
 	@curl -F "img=@samples/1.jpg" http://0.0.0.0:5000/ocr
 
-test:idcard:
+test.idcard:
 	@curl -F "img=@samples/1.jpg" http://0.0.0.0:5000/idcard
 

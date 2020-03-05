@@ -31,6 +31,8 @@ def process(img):
     print("CRNN time: %.03fs" % (time.time() - start_time))
     from classify import ocr_result2idcard_json
     res = ocr_result2idcard_json(ocr_result)
+    import json
+    print json.dumps(res,encoding='utf-8', indent=2, ensure_ascii=False)
 
 if __name__ == '__main__':
     for image_file in sorted(image_files):

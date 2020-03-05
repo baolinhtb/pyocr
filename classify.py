@@ -95,13 +95,13 @@ def classify(ocr_result_array):
                 break
             # gender if any gender exits
             if any(gender in seg for gender in filters["性别"]) and \
-                index < 4:
+                index < 7:
                 ocr_result_array[index]["groups"][i]="性别"
                 # print("性别:%s"%ocr_result_array[index]["segments"][i])
                 continue
             # nationaliy if any nationality exits
             if any(nation in seg for nation in filters["民族"]) and \
-                index < 4:
+                index < 7:
                 ocr_result_array[index]["groups"][i]="民族"
                 # print("民族:%s"%ocr_result_array[index]["segments"][i])
                 continue

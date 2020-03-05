@@ -22,6 +22,9 @@ test.rest:
 test.infer:
 	@python infer.py
 
-test.curl:
+test.ocr:
 	@curl -F "img=@samples/1.jpg" http://0.0.0.0:5000/ocr
+
+test:idcard:
+	@curl -F "img=@samples/1.jpg" http://0.0.0.0:5000/idcard
 

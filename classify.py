@@ -110,7 +110,8 @@ def classify(ocr_result_array):
         # next string after region
         if item["groups"] == {} and \
             res["住址"] !="" and \
-            res["公民身份号码"] == "":
+            res["公民身份号码"] == "" and \
+            not any(key in item["result"] for key in ["公民","身份","号码"]):
             res["住址"] += item["result"]
         if item["groups"] == {}: continue
         for key,value in item["groups"].items():

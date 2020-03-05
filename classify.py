@@ -53,14 +53,14 @@ def classify(ocr_result_array):
     # filtering & grouping
     # segmets[i] where i in groups
     for index,item in enumerate(ocr_result_array):
-        print(item["result"])
+        # print(item["result"])
         for i,seg in enumerate(item["segments"]):
-            print(seg)
+            # print(seg)
             # card number if all digits & len > 10: 
             if all(letter in filters["公民身份号码"] for letter in seg) and \
                 len(seg) >= 10 and \
                 index>3:
-                print("公民身份号码:%s"%ocr_result_array[index]["segments"][i])
+                # print("公民身份号码:%s"%ocr_result_array[index]["segments"][i])
                 ocr_result_array[index]["groups"][i]="公民身份号码";break
             # region if any region string exists
             if any(region in seg for region in filters["住址"]) and \
@@ -69,7 +69,7 @@ def classify(ocr_result_array):
                 # remove all before region string, it is for mark string
                 ocr_result_array[index]["segments"][i] = \
                     ocr_result_array[index]["result"][ocr_result_array[index]["result"].find(seg):]
-                print("住址:%s"%ocr_result_array[index]["segments"][i])
+                # print("住址:%s"%ocr_result_array[index]["segments"][i])
                 break
             # name if any surname exits
             if any(sname in seg for sname in filters["姓名"]) and \
@@ -79,7 +79,7 @@ def classify(ocr_result_array):
                 # remove all before surname string, it is for mark string
                 ocr_result_array[index]["segments"][i] = \
                     ocr_result_array[index]["result"][ocr_result_array[index]["result"].find(seg):]
-                print("姓名:%s"%ocr_result_array[index]["segments"][i])
+                # print("姓名:%s"%ocr_result_array[index]["segments"][i])
                 break
             # year if 3+ digits exists
             if all(letter in filters["出生"] for letter in seg) and \
@@ -91,19 +91,19 @@ def classify(ocr_result_array):
                 # remove all before year string, it is for mark string
                 ocr_result_array[index]["segments"][i] = \
                     ocr_result_array[index]["result"][ocr_result_array[index]["result"].find(seg):]
-                print("出生:%s"%ocr_result_array[index]["segments"][i])
+                # print("出生:%s"%ocr_result_array[index]["segments"][i])
                 break
             # gender if any gender exits
             if any(gender in seg for gender in filters["性别"]) and \
                 index < 4:
                 ocr_result_array[index]["groups"][i]="性别"
-                print("性别:%s"%ocr_result_array[index]["segments"][i])
+                # print("性别:%s"%ocr_result_array[index]["segments"][i])
                 continue
             # nationaliy if any nationality exits
             if any(nation in seg for nation in filters["民族"]) and \
                 index < 4:
                 ocr_result_array[index]["groups"][i]="民族"
-                print("民族:%s"%ocr_result_array[index]["segments"][i])
+                # print("民族:%s"%ocr_result_array[index]["segments"][i])
                 continue
     # classifying
     for index,item in enumerate(ocr_result_array):
@@ -114,7 +114,7 @@ def classify(ocr_result_array):
             res["住址"] += item["result"]
         if item["groups"] == {}: continue
         for key,value in item["groups"].items():
-            print key,value,item["segments"][key]
+            # print key,value,item["segments"][key]
             res[value] = item["segments"][key]
     return res
 
@@ -147,7 +147,7 @@ def ocr_result2idcard_json(ocr_result):
     # sort & classfiy
     sorted_ =sorted(ocr_result_array,key=lambda x: x["position"][1])
     res = classify(sorted_)
-    print(res)
+    # print(res)
 
 if __name__ == "__main__":
     ocr_result={}

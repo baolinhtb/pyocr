@@ -55,7 +55,7 @@ def classify(ocr_result_array):
     for index,item in enumerate(ocr_result_array):
         # print(item["result"])
         for i,seg in enumerate(item["segments"]):
-            print(seg)
+            # print(seg)
             # card number if all digits & len > 10: 
             if all(letter in filters["公民身份号码"] for letter in seg) and \
                 len(seg) >= 10 and \

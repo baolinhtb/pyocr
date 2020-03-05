@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# image loading by PIL brings better performance for recognition than the one by opencv does.
+# the engine(ctpn+crnn) was developed on images loaded by PIL as default
 import io
 import os
 import time

@@ -11,7 +11,7 @@ from PIL import Image, ImageOps
 # from helper import utils
 from math import degrees,atan2
 
-from utils.misc import dumpRotateImage
+from utilz.misc import dumpRotateImage
 this_dir = os.path.dirname(__file__)
 lib_path = os.path.join(this_dir, 'crnn')
 sys.path.insert(0, lib_path)

@@ -9,7 +9,7 @@ import tensorflow as tf
 
 #from helper import utils
 
-from utils.misc import resize_im, draw_boxes
+from utilz.misc import resize_im, draw_boxes
 
 this_dir = os.path.dirname(__file__)
 lib_path = os.path.join(this_dir, 'ctpn', 'lib')

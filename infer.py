@@ -18,8 +18,6 @@ detector = Detector('./ctpn/checkpoints','./ctpn/data/text.yml')
 from recognizer import Recognizer
 recoer = Recognizer('./crnn/labels/char_std_5990.txt', './crnn/models/weights_densenet.h5')
 
-image_files = glob('./samples/*.*')
-
 def process(img):
     start_time = time.time()
     rois, _, img = detector.detect(img)
@@ -36,6 +34,12 @@ def process(img):
     print(jsonstr)
 
 if __name__ == '__main__':
+    import sys
+    if(len(sys.argv) < 3): image_files = glob('./samples/*.jpg')
+    import os
+    if not os.path.exists(sys.argv[2]) or not os.path.isdir(sys.argv[2]):
+        print("The directory doesn't exists"); return
+    image_files = glob('%s/*.jpg'%os.path.abspath(sys.argv[2]))
     for image_file in sorted(image_files):
         image = np.array(Image.open(image_file).convert('RGB'))
         process(image)

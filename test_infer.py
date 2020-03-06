@@ -38,12 +38,12 @@ def main():
     import sys
     import os
     image_files = []
-    if(len(sys.argv) < 3): imgdir = './samples'
-    elif not os.path.exists(sys.argv[2]) or not os.path.isdir(sys.argv[2]):
-        if not os.path.isfile(sys.argv[2]):
+    if(len(sys.argv) < 2): imgdir = './samples'
+    elif not os.path.exists(sys.argv[1]) or not os.path.isdir(sys.argv[1]):
+        if not os.path.isfile(sys.argv[1]):
             print("No such a file or directory exists."); return
-            image_files = [sys.argv[2]]
-    else: imgdir = os.path.abspath(sys.argv[2])
+        image_files = [sys.argv[1]]
+    else: imgdir = os.path.abspath(sys.argv[1])
     image_files = glob('%s/*.jpg'%imgdir) if not image_files else image_files
     for image_file in sorted(image_files):
         image = np.array(Image.open(image_file).convert('RGB'))

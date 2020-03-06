@@ -27,7 +27,7 @@ make test.rest
 
 ```
 [test]
-$ curl -F "img=@samples/weixiaobao.png" http://0.0.0.0:5000/ocr
+$ curl -F "img=@samples/weixiaobao.png" http://0.0.0.0:5000/idcard
 >>>
 {
   "民族": "汉", 

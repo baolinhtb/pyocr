@@ -23,9 +23,9 @@ genders = ['男','女']
 birthday = ['年','月','日']
 
 import string
-symbols=['!','@','#','$','%','^','&','*','(',')','-','_','+','=','~','`','[',']','{','}','|',':',';']
+symbols=['!','@','#','$','%','^','&','*','(',')','-','_','+','=','~','`','[',']','{','}','|',':',';','.']
 chn_symbols=['。','、','；','‘','“','【','】','×','＋','：']
-digits = [str(digit) for digit in string.digits]
+digits = [str(digit) for digit in string.digits+string.lowercase+string.uppercase]
 
 filters = {
         "姓名": chn_snames,#[item.encode("utf-8") for item in chn_snames],

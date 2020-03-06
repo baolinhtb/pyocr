@@ -41,9 +41,9 @@ def get_cv_img(r):
         f = r.files['img']
         f.save(app.config['idcard.img'],buffer_size=app.config['MAX_CONTENT_LENGTH'])
         try: img = np.array(Image.open(app.config['idcard.img']).convert('RGB'))
-        except: return None
+        except: return None,False
         # img = cv2.imread(app.config['idcard.img'], cv2.IMREAD_COLOR)
-    return img
+    return img,True
 
 def process(img):
     start_time = time.time()
@@ -75,26 +75,29 @@ def ocr_result2ocr_json(ocr_result):
 
 import json
 
+IOERR_MSG = {"success": "false", "error": "IOError(cannot identify image file)"}
 
 @app.route('/ocr', methods=['POST'])
 def ocr():
     if request.method == 'POST':
-        img = get_cv_img(request)
-        ocr_result = process(img)
-        ret = ocr_result2ocr_json(ocr_result)
-        return json.dumps(ret,encoding='utf-8', indent=2, ensure_ascii=False)
+        img,ret = get_cv_img(request)
+        if ret: 
+            ocr_result = process(img)
+            res = ocr_result2ocr_json(ocr_result)
+        else: res = IOERR_MSG
+        return json.dumps(res,encoding='utf-8', indent=2, ensure_ascii=False)
+
+from classifier import Classifier
 
 @app.route('/idcard', methods=['POST'])
 def idcard():
     if request.method == 'POST':
-        img = get_cv_img(request)
-        if img: 
+        img,ret = get_cv_img(request)
+        if ret: 
             ocr_result = process(img)
-            from classifier import Classifier
-            ret = Classifier.ocr_result2idcard_json(ocr_result)
-        else:
-            ret = {"success": "false", "error": "IOError(cannot identify image file)"}
-        return json.dumps(ret,encoding='utf-8', indent=2, ensure_ascii=False)
+            res = Classifier.ocr_result2idcard_json(ocr_result)
+        else: res = IOERR_MSG
+        return json.dumps(res,encoding='utf-8', indent=2, ensure_ascii=False)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')

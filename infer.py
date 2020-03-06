@@ -33,13 +33,17 @@ def process(img):
     jsonstr = json.dumps(res,encoding='utf-8', indent=2, ensure_ascii=False)
     print(jsonstr)
 
-if __name__ == '__main__':
+
+def main():
     import sys
-    if(len(sys.argv) < 3): image_files = glob('./samples/*.jpg')
     import os
-    if not os.path.exists(sys.argv[2]) or not os.path.isdir(sys.argv[2]):
+    if(len(sys.argv) < 3): image_files = glob('./samples/*.jpg')
+    elif not os.path.exists(sys.argv[2]) or not os.path.isdir(sys.argv[2]):
         print("The directory doesn't exists"); return
     image_files = glob('%s/*.jpg'%os.path.abspath(sys.argv[2]))
     for image_file in sorted(image_files):
         image = np.array(Image.open(image_file).convert('RGB'))
         process(image)
+
+if __name__ == '__main__':
+    main()

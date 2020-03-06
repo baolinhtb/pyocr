@@ -44,7 +44,7 @@ def main():
             print("No such a file or directory exists."); return
             image_files = [sys.argv[2]]
     else: imgdir = os.path.abspath(sys.argv[2])
-    image_files = glob('%s/*.jpg'%imgdir) if image_files else image_files
+    image_files = glob('%s/*.jpg'%imgdir) if not image_files else image_files
     for image_file in sorted(image_files):
         image = np.array(Image.open(image_file).convert('RGB'))
         process(image)

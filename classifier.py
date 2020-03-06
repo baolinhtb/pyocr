@@ -166,4 +166,7 @@ if __name__ == "__main__":
     ocr_result['４']=(((1,2,3,4,5,6,7,8),u"性别"))
     ocr_result['５']=(((1,2,3,4,5,6,7,8),u"："))
     ocr_result['６']=(((1,2,3,4,5,6,7,8),u"男"))
-    Classifier.ocr_result2idcard_json(ocr_result)
+    res=Classifier.ocr_result2idcard_json(ocr_result)
+    import json
+    jsonstr = json.dumps(res,encoding='utf-8', indent=2, ensure_ascii=False)
+    print jsonstr

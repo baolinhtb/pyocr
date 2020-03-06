@@ -37,10 +37,11 @@ def process(img):
 def main():
     import sys
     import os
-    if(len(sys.argv) < 3): image_files = glob('./samples/*.jpg')
+    if(len(sys.argv) < 3): imgdir = './samples'
     elif not os.path.exists(sys.argv[2]) or not os.path.isdir(sys.argv[2]):
         print("The directory doesn't exists"); return
-    image_files = glob('%s/*.jpg'%os.path.abspath(sys.argv[2]))
+    else: imgdir = os.path.abspath(sys.argv[2])
+    image_files = glob('%s/*.jpg'%imgdir)
     for image_file in sorted(image_files):
         image = np.array(Image.open(image_file).convert('RGB'))
         process(image)

@@ -13,3 +13,4 @@ cache/
 logs/
 output/
 samples/extra
+cfnn/models

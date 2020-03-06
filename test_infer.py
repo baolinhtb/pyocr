@@ -46,7 +46,8 @@ def main():
     else: imgdir = os.path.abspath(sys.argv[1])
     image_files = glob('%s/*.jpg'%imgdir) if not image_files else image_files
     for image_file in sorted(image_files):
-        image = np.array(Image.open(image_file).convert('RGB'))
+        try: image = np.array(Image.open(image_file).convert('RGB'))
+        except: continue
         process(image)
 
 if __name__ == '__main__':

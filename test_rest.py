@@ -40,7 +40,8 @@ def get_cv_img(r):
     else:
         f = r.files['img']
         f.save(app.config['idcard.img'],buffer_size=app.config['MAX_CONTENT_LENGTH'])
-        img = np.array(Image.open(app.config['idcard.img']).convert('RGB'))
+        try: img = np.array(Image.open(app.config['idcard.img']).convert('RGB'))
+        except: return None
         # img = cv2.imread(app.config['idcard.img'], cv2.IMREAD_COLOR)
     return img
 
@@ -87,9 +88,12 @@ def ocr():
 def idcard():
     if request.method == 'POST':
         img = get_cv_img(request)
-        ocr_result = process(img)
-        from classifier import Classifier
-        ret = Classifier.ocr_result2idcard_json(ocr_result)
+        if img: 
+            ocr_result = process(img)
+            from classifier import Classifier
+            ret = Classifier.ocr_result2idcard_json(ocr_result)
+        else:
+            ret = {"success": "false", "error": "IOError(cannot identify image file)"}
         return json.dumps(ret,encoding='utf-8', indent=2, ensure_ascii=False)
 
 if __name__ == "__main__":

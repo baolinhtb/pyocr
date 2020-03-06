@@ -38,7 +38,7 @@ filters = {
 
 from handy.misc import switch
 
-debug = True
+debug = False
 
 import jieba
 jieba.add_word("公民身份号码")

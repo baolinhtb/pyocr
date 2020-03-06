@@ -48,6 +48,7 @@ def main():
     for image_file in sorted(image_files):
         try: image = np.array(Image.open(image_file).convert('RGB'))
         except: continue
+        print(image_file)
         process(image)
 
 if __name__ == '__main__':

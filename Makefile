@@ -17,10 +17,10 @@ install.cpu: prerequisites
 	@cd ./ctpn/lib/utils/ && ./make_cpu.sh
 
 test.rest:
-	@python rest.py
+	@python test_rest.py
 
 test.infer:
-	@python infer.py
+	@python test_infer.py
 
 test.ocr:
 	@curl -F "img=@samples/1.jpg" http://0.0.0.0:5000/ocr

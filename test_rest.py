@@ -88,8 +88,8 @@ def idcard():
     if request.method == 'POST':
         img = get_cv_img(request)
         ocr_result = process(img)
-        from classify import ocr_result2idcard_json
-        ret = ocr_result2idcard_json(ocr_result)
+        from classifier import Classifier
+        ret = Classifier.ocr_result2idcard_json(ocr_result)
         return json.dumps(ret,encoding='utf-8', indent=2, ensure_ascii=False)
 
 if __name__ == "__main__":
